@@ -1,151 +1,125 @@
 "use client";
 
-import { useState } from "react";
-import { Calculator as CalcIcon, ArrowRight } from "lucide-react";
+import { TrendingDown, TrendingUp, ArrowRight, Wallet, Shield } from "lucide-react";
 
 export default function Calculator() {
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [coverageType, setCoverageType] = useState("");
-  const [result, setResult] = useState<number | null>(null);
-
-  const calculatePremium = () => {
-    if (!age || !gender || !coverageType) return;
-
-    const baseRates: Record<string, number> = {
-      medical: 35000,
-      cancer: 25000,
-      health: 45000,
-      pension: 80000,
-    };
-
-    const ageNum = parseInt(age);
-    let premium = baseRates[coverageType] || 35000;
-
-    // 나이에 따른 조정
-    if (ageNum < 30) premium *= 0.8;
-    else if (ageNum < 40) premium *= 1.0;
-    else if (ageNum < 50) premium *= 1.3;
-    else premium *= 1.6;
-
-    // 성별에 따른 조정
-    if (gender === "female") premium *= 0.95;
-
-    setResult(Math.round(premium));
-  };
-
   return (
     <section id="calculator" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            간편 보험료 계산기
+            마술이 아닙니다.<br className="hidden md:block" />
+            월 보험료는 줄이고, 보장은 2배로 늘려드립니다.
           </h2>
-          <p className="text-lg text-gray-600">
-            30초 만에 예상 보험료를 확인해보세요
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            아낀 돈으로 맛있는 거 사 드세요.<br />
+            나가는 돈보다 &apos;들어오는 돈&apos;이 많아야 진짜 보험입니다.
           </p>
         </div>
 
-        <div className="max-w-2xl mx-auto bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl shadow-lg">
-          <div className="space-y-6">
-            {/* 나이 입력 */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                나이
-              </label>
-              <input
-                type="number"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-                placeholder="만 나이를 입력하세요"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                min="0"
-                max="100"
-              />
-            </div>
+        {/* Before / After 비교 */}
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Before */}
+            <div className="bg-gradient-to-br from-red-50 to-white p-8 rounded-2xl shadow-lg border-2 border-red-100">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                  <TrendingDown className="w-6 h-6 text-red-500" />
+                </div>
+                <div>
+                  <span className="text-sm text-red-500 font-semibold">BEFORE</span>
+                  <h3 className="text-xl font-bold text-gray-900">기존 보험</h3>
+                </div>
+              </div>
 
-            {/* 성별 선택 */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                성별
-              </label>
-              <div className="grid grid-cols-2 gap-4">
-                <button
-                  type="button"
-                  onClick={() => setGender("male")}
-                  className={`py-3 px-4 rounded-lg border-2 font-medium transition-all ${
-                    gender === "male"
-                      ? "border-blue-500 bg-blue-50 text-blue-700"
-                      : "border-gray-300 text-gray-600 hover:border-gray-400"
-                  }`}
-                >
-                  남성
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setGender("female")}
-                  className={`py-3 px-4 rounded-lg border-2 font-medium transition-all ${
-                    gender === "female"
-                      ? "border-blue-500 bg-blue-50 text-blue-700"
-                      : "border-gray-300 text-gray-600 hover:border-gray-400"
-                  }`}
-                >
-                  여성
-                </button>
+              <div className="space-y-4 mb-6">
+                <div className="flex justify-between items-center py-3 border-b border-red-100">
+                  <span className="text-gray-600">월 보험료</span>
+                  <span className="text-2xl font-bold text-red-500">15만원</span>
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-red-100">
+                  <span className="text-gray-600">실제 보장 범위</span>
+                  <span className="text-lg font-semibold text-gray-400">40%</span>
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-red-100">
+                  <span className="text-gray-600">숨은 보험금</span>
+                  <span className="text-lg font-semibold text-gray-400">모름</span>
+                </div>
+                <div className="flex justify-between items-center py-3">
+                  <span className="text-gray-600">5년간 낸 보험료</span>
+                  <span className="text-xl font-bold text-red-500">900만원</span>
+                </div>
+              </div>
+
+              <div className="bg-red-100 rounded-xl p-4 text-center">
+                <p className="text-red-600 font-medium">돌려받은 보험금</p>
+                <p className="text-3xl font-bold text-red-500">0원</p>
               </div>
             </div>
 
-            {/* 보장 유형 선택 */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                원하는 보장 유형
-              </label>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { value: "medical", label: "실손보험" },
-                  { value: "cancer", label: "암보험" },
-                  { value: "health", label: "건강보험" },
-                  { value: "pension", label: "연금보험" },
-                ].map((type) => (
-                  <button
-                    key={type.value}
-                    type="button"
-                    onClick={() => setCoverageType(type.value)}
-                    className={`py-3 px-4 rounded-lg border-2 font-medium transition-all ${
-                      coverageType === type.value
-                        ? "border-blue-500 bg-blue-50 text-blue-700"
-                        : "border-gray-300 text-gray-600 hover:border-gray-400"
-                    }`}
-                  >
-                    {type.label}
-                  </button>
-                ))}
+            {/* After */}
+            <div className="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl shadow-lg border-2 border-blue-200">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                  <TrendingUp className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <span className="text-sm text-blue-600 font-semibold">AFTER</span>
+                  <h3 className="text-xl font-bold text-gray-900">보상청 리모델링</h3>
+                </div>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div className="flex justify-between items-center py-3 border-b border-blue-100">
+                  <span className="text-gray-600">월 보험료</span>
+                  <div className="text-right">
+                    <span className="text-2xl font-bold text-blue-600">8만원</span>
+                    <span className="ml-2 text-sm text-green-500 font-semibold">-47%</span>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-blue-100">
+                  <span className="text-gray-600">실제 보장 범위</span>
+                  <div className="text-right">
+                    <span className="text-lg font-semibold text-blue-600">95%</span>
+                    <span className="ml-2 text-sm text-green-500 font-semibold">+55%p</span>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-blue-100">
+                  <span className="text-gray-600">숨은 보험금 발굴</span>
+                  <span className="text-lg font-semibold text-blue-600">완료</span>
+                </div>
+                <div className="flex justify-between items-center py-3">
+                  <span className="text-gray-600">5년간 절약 금액</span>
+                  <span className="text-xl font-bold text-green-500">420만원</span>
+                </div>
+              </div>
+
+              <div className="bg-blue-100 rounded-xl p-4 text-center">
+                <p className="text-blue-600 font-medium">찾아드린 숨은 보험금</p>
+                <p className="text-3xl font-bold text-blue-600">평균 127만원</p>
               </div>
             </div>
+          </div>
 
-            {/* 계산 버튼 */}
-            <button
-              onClick={calculatePremium}
-              disabled={!age || !gender || !coverageType}
-              className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white py-4 rounded-lg font-semibold transition-all"
-            >
-              <CalcIcon className="w-5 h-5" />
-              보험료 계산하기
-            </button>
-
-            {/* 결과 표시 */}
-            {result && (
-              <div className="mt-6 p-6 bg-white border-2 border-blue-200 rounded-xl text-center">
-                <p className="text-gray-600 mb-2">예상 월 보험료</p>
-                <p className="text-4xl font-bold text-blue-600">
-                  {result.toLocaleString()}원
-                </p>
-                <button className="mt-4 flex items-center gap-2 mx-auto text-blue-600 hover:text-blue-700 font-medium">
-                  상세 견적 받기
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+          {/* 하단 강조 박스 */}
+          <div className="mt-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-6 md:p-8 text-white text-center">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+              <div className="flex items-center gap-3">
+                <Wallet className="w-8 h-8" />
+                <div className="text-left">
+                  <p className="text-blue-200 text-sm">월 절약 금액</p>
+                  <p className="text-2xl font-bold">7만원</p>
+                </div>
               </div>
-            )}
+              <ArrowRight className="w-6 h-6 hidden md:block" />
+              <div className="flex items-center gap-3">
+                <Shield className="w-8 h-8" />
+                <div className="text-left">
+                  <p className="text-blue-200 text-sm">보장 범위 증가</p>
+                  <p className="text-2xl font-bold">2배 이상</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

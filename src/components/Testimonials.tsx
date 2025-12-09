@@ -1,44 +1,40 @@
 "use client";
 
 import { useState } from "react";
-import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { Heart, ChevronLeft, ChevronRight, MessageCircle, Gift } from "lucide-react";
 
 const testimonials = [
   {
     id: 1,
-    name: "김○○",
-    age: "40대",
-    product: "실손보험",
-    rating: 5,
-    content:
-      "병원비 걱정 없이 치료받을 수 있어서 정말 좋습니다. 청구도 간편하고 입금도 빨라요. 상담사분도 친절하게 설명해주셔서 이해하기 쉬웠습니다.",
+    name: "김○○님",
+    amount: "127만원",
+    message: "와 진짜 이게 된다고요?? 보험사에서 안 된다길래 포기했었는데ㅠㅠ 감사합니다 진짜로ㅠㅠㅠ",
+    reply: "김○○님 축하드려요! 앞으로도 빠뜨리는 보험금 없이 다 챙겨드릴게요 😊",
+    time: "오후 3:24",
   },
   {
     id: 2,
-    name: "이○○",
-    age: "30대",
-    product: "암보험",
-    rating: 5,
-    content:
-      "가족력이 있어서 암보험을 찾고 있었는데, 합리적인 가격에 좋은 보장을 받을 수 있었습니다. 든든한 보장에 마음이 놓입니다.",
+    name: "이○○님",
+    amount: "89만원",
+    message: "설계사가 다 거기서 거기라고 생각했는데... 진짜 다르네요. 친구들한테 다 소개시켜줄게요!",
+    reply: "이○○님 믿어주셔서 감사합니다! 소개해주시는 분들도 꼼꼼히 챙겨드릴게요 💪",
+    time: "오후 5:12",
   },
   {
     id: 3,
-    name: "박○○",
-    age: "50대",
-    product: "연금보험",
-    rating: 5,
-    content:
-      "노후 준비를 위해 연금보험에 가입했어요. 세제 혜택도 받고, 안정적인 노후를 준비할 수 있게 되어 만족합니다.",
+    name: "박○○님",
+    amount: "213만원",
+    message: "입원비랑 수술비 다 합쳐서 213만원이나 받았어요!! 진작 연락드릴걸 그랬어요ㅋㅋㅋ",
+    reply: "박○○님 고생 많으셨어요! 건강이 최고니까 잘 챙기시고, 언제든 연락주세요 🙏",
+    time: "오후 7:45",
   },
   {
     id: 4,
-    name: "최○○",
-    age: "35대",
-    product: "건강보험",
-    rating: 4,
-    content:
-      "건강검진에서 이상이 발견되었을 때 보험 덕분에 부담 없이 추가 검사를 받을 수 있었습니다. 미리 준비하길 잘했다고 생각해요.",
+    name: "최○○님",
+    amount: "156만원",
+    message: "5년 넘게 낸 보험인데 한 번도 청구 안 했거든요. 이렇게 받을 수 있는 줄 몰랐어요. 고맙습니다!",
+    reply: "최○○님 다행이에요! 앞으로는 하나도 빠뜨리지 않게 제가 알려드릴게요 ✨",
+    time: "오후 2:18",
   },
 ];
 
@@ -58,49 +54,64 @@ export default function Testimonials() {
   return (
     <section className="py-20 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-4">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            고객 후기
+            수임료 달라는 소리 안 합니다.<br className="hidden md:block" />
+            <span className="text-blue-600">감사 인사면 충분합니다.</span>
           </h2>
+        </div>
+        <div className="text-center mb-12 max-w-2xl mx-auto">
           <p className="text-lg text-gray-600">
-            실제 가입 고객님들의 생생한 후기
+            &apos;설계사가 다 거기서 거기지&apos; 의심했던 분들이, 상담 후 가장 열렬한 팬이 되셨습니다.<br />
+            고객님이 받으신 보상금, 그 뒤에 따라오는 &apos;고맙다&apos;는 진심 어린 말 한마디가 제가 일하는 이유입니다.
           </p>
         </div>
 
-        {/* Desktop Grid */}
+        {/* Desktop Grid - 카톡 대화 스타일 */}
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.id}
-              className="bg-white rounded-2xl shadow-lg p-6 relative"
+              className="bg-white rounded-2xl shadow-lg overflow-hidden"
             >
-              <Quote className="absolute top-4 right-4 w-8 h-8 text-blue-100" />
-
-              {/* Rating */}
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`w-4 h-4 ${
-                      i < testimonial.rating
-                        ? "fill-yellow-400 text-yellow-400"
-                        : "text-gray-300"
-                    }`}
-                  />
-                ))}
+              {/* 카톡 헤더 */}
+              <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3 flex items-center gap-2">
+                <MessageCircle className="w-5 h-5 text-white" />
+                <span className="text-white font-medium">{testimonial.name}</span>
+                <span className="ml-auto text-blue-200 text-xs">{testimonial.time}</span>
               </div>
 
-              {/* Content */}
-              <p className="text-gray-600 text-sm mb-6 line-clamp-4">
-                {testimonial.content}
-              </p>
+              {/* 대화 내용 */}
+              <div className="p-4 space-y-3 bg-[#B2C7D9] min-h-[200px]">
+                {/* 고객 메시지 (왼쪽) */}
+                <div className="flex justify-start">
+                  <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[85%] shadow-sm">
+                    <p className="text-gray-800 text-sm">{testimonial.message}</p>
+                  </div>
+                </div>
 
-              {/* Author */}
-              <div className="border-t pt-4">
-                <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                <p className="text-sm text-gray-500">
-                  {testimonial.age} · {testimonial.product}
-                </p>
+                {/* 받은 금액 강조 */}
+                <div className="flex justify-center">
+                  <div className="bg-yellow-100 rounded-full px-4 py-1.5 flex items-center gap-2">
+                    <Gift className="w-4 h-4 text-yellow-600" />
+                    <span className="text-yellow-700 font-bold text-sm">
+                      {testimonial.amount} 수령
+                    </span>
+                  </div>
+                </div>
+
+                {/* 설계사 답장 (오른쪽) */}
+                <div className="flex justify-end">
+                  <div className="bg-[#FEE500] rounded-2xl rounded-tr-sm px-4 py-2 max-w-[85%] shadow-sm">
+                    <p className="text-gray-800 text-sm">{testimonial.reply}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 하단 감사 표시 */}
+              <div className="bg-white px-4 py-3 border-t flex items-center justify-center gap-2">
+                <Heart className="w-4 h-4 text-red-500 fill-red-500" />
+                <span className="text-sm text-gray-600">감사 메시지</span>
               </div>
             </div>
           ))}
@@ -108,37 +119,45 @@ export default function Testimonials() {
 
         {/* Mobile Carousel */}
         <div className="md:hidden">
-          <div className="bg-white rounded-2xl shadow-lg p-6 relative">
-            <Quote className="absolute top-4 right-4 w-8 h-8 text-blue-100" />
-
-            {/* Rating */}
-            <div className="flex gap-1 mb-4">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className={`w-4 h-4 ${
-                    i < testimonials[currentIndex].rating
-                      ? "fill-yellow-400 text-yellow-400"
-                      : "text-gray-300"
-                  }`}
-                />
-              ))}
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+            {/* 카톡 헤더 */}
+            <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3 flex items-center gap-2">
+              <MessageCircle className="w-5 h-5 text-white" />
+              <span className="text-white font-medium">{testimonials[currentIndex].name}</span>
+              <span className="ml-auto text-blue-200 text-xs">{testimonials[currentIndex].time}</span>
             </div>
 
-            {/* Content */}
-            <p className="text-gray-600 mb-6">
-              {testimonials[currentIndex].content}
-            </p>
+            {/* 대화 내용 */}
+            <div className="p-4 space-y-3 bg-[#B2C7D9] min-h-[200px]">
+              {/* 고객 메시지 */}
+              <div className="flex justify-start">
+                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[85%] shadow-sm">
+                  <p className="text-gray-800 text-sm">{testimonials[currentIndex].message}</p>
+                </div>
+              </div>
 
-            {/* Author */}
-            <div className="border-t pt-4">
-              <p className="font-semibold text-gray-900">
-                {testimonials[currentIndex].name}
-              </p>
-              <p className="text-sm text-gray-500">
-                {testimonials[currentIndex].age} ·{" "}
-                {testimonials[currentIndex].product}
-              </p>
+              {/* 받은 금액 */}
+              <div className="flex justify-center">
+                <div className="bg-yellow-100 rounded-full px-4 py-1.5 flex items-center gap-2">
+                  <Gift className="w-4 h-4 text-yellow-600" />
+                  <span className="text-yellow-700 font-bold text-sm">
+                    {testimonials[currentIndex].amount} 수령
+                  </span>
+                </div>
+              </div>
+
+              {/* 설계사 답장 */}
+              <div className="flex justify-end">
+                <div className="bg-[#FEE500] rounded-2xl rounded-tr-sm px-4 py-2 max-w-[85%] shadow-sm">
+                  <p className="text-gray-800 text-sm">{testimonials[currentIndex].reply}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 하단 */}
+            <div className="bg-white px-4 py-3 border-t flex items-center justify-center gap-2">
+              <Heart className="w-4 h-4 text-red-500 fill-red-500" />
+              <span className="text-sm text-gray-600">감사 메시지</span>
             </div>
           </div>
 

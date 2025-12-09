@@ -1,66 +1,12 @@
-import { Heart, Shield, Activity, PiggyBank, ArrowRight } from "lucide-react";
+import { FileText, Award, TrendingUp, CheckCircle } from "lucide-react";
+import Image from "next/image";
 
-const products = [
-  {
-    id: 1,
-    name: "실손보험",
-    icon: Heart,
-    description: "실제 의료비의 최대 90%까지 보장",
-    features: ["입원/통원 의료비", "약제비 보장", "MRI/CT 검사비"],
-    price: "월 35,000원부터",
-    color: "blue",
-  },
-  {
-    id: 2,
-    name: "암보험",
-    icon: Shield,
-    description: "암 진단 시 최대 1억원 일시금 보장",
-    features: ["암 진단비", "수술/입원비", "항암치료비"],
-    price: "월 25,000원부터",
-    color: "purple",
-  },
-  {
-    id: 3,
-    name: "건강보험",
-    icon: Activity,
-    description: "질병/상해에 대한 종합적인 보장",
-    features: ["성인병 보장", "수술비 보장", "입원일당"],
-    price: "월 45,000원부터",
-    color: "green",
-  },
-  {
-    id: 4,
-    name: "연금보험",
-    icon: PiggyBank,
-    description: "안정적인 노후를 위한 연금 설계",
-    features: ["비과세 혜택", "안정적 수익", "종신연금 가능"],
-    price: "월 80,000원부터",
-    color: "orange",
-  },
+const stats = [
+  { value: "600만원", label: "치아보험 없이 임플란트 보상", icon: Award },
+  { value: "수백 건", label: "보상 청구 성공 사례", icon: FileText },
+  { value: "98%", label: "청구 성공률", icon: TrendingUp },
+  { value: "127만원", label: "평균 숨은 보험금 발굴", icon: CheckCircle },
 ];
-
-const colorClasses: Record<string, { bg: string; icon: string; button: string }> = {
-  blue: {
-    bg: "bg-blue-50",
-    icon: "text-blue-600",
-    button: "bg-blue-600 hover:bg-blue-700",
-  },
-  purple: {
-    bg: "bg-purple-50",
-    icon: "text-purple-600",
-    button: "bg-purple-600 hover:bg-purple-700",
-  },
-  green: {
-    bg: "bg-green-50",
-    icon: "text-green-600",
-    button: "bg-green-600 hover:bg-green-700",
-  },
-  orange: {
-    bg: "bg-orange-50",
-    icon: "text-orange-600",
-    button: "bg-orange-600 hover:bg-orange-700",
-  },
-};
 
 export default function ProductCards() {
   return (
@@ -68,64 +14,116 @@ export default function ProductCards() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            주요 보험 상품
+            치아보험 없으면 임플란트 보장 못 받는다구요?<br className="hidden md:block" />
+            <span className="text-blue-600">제 고객님은 600만 원 받으셨는데요?</span>
           </h2>
-          <p className="text-lg text-gray-600">
-            고객님에게 맞는 최적의 보험 상품을 찾아보세요
-          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product) => {
-            const Icon = product.icon;
-            const colors = colorClasses[product.color];
-
-            return (
-              <div
-                key={product.id}
-                className="bg-white hover:bg-gray-50 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-[1.05] transition-all duration-300 p-6 flex flex-col"
-              >
-                {/* Icon */}
-                <div
-                  className={`w-14 h-14 ${colors.bg} rounded-xl flex items-center justify-center mb-4`}
-                >
-                  <Icon className={`w-7 h-7 ${colors.icon}`} />
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* 왼쪽: 지급 내역서 스타일 */}
+          <div className="space-y-6">
+            {/* 가상의 지급 내역서 카드 */}
+            <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
+              <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-blue-600" />
                 </div>
-
-                {/* Content */}
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  {product.name}
-                </h3>
-                <p className="text-gray-600 mb-4 text-sm">{product.description}</p>
-
-                {/* Features */}
-                <ul className="space-y-2 mb-6 flex-grow">
-                  {product.features.map((feature, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-center gap-2 text-sm text-gray-600"
-                    >
-                      <span className="w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Price */}
-                <p className="text-lg font-bold text-gray-900 mb-4">
-                  {product.price}
-                </p>
-
-                {/* CTA Button */}
-                <button
-                  className={`flex items-center justify-center gap-2 ${colors.button} text-white py-3 rounded-lg font-medium transition-colors`}
-                >
-                  자세히 보기
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                <div>
+                  <p className="text-sm text-gray-500">보험금 지급 내역서</p>
+                  <p className="font-semibold text-gray-900">실손의료비 + 진단비</p>
+                </div>
               </div>
-            );
-          })}
+
+              <div className="space-y-3">
+                <div className="flex justify-between py-2 border-b border-dashed border-gray-200">
+                  <span className="text-gray-600">청구 항목</span>
+                  <span className="font-medium text-gray-900">임플란트 시술비</span>
+                </div>
+                <div className="flex justify-between py-2 border-b border-dashed border-gray-200">
+                  <span className="text-gray-600">보험사 최초 안내</span>
+                  <span className="font-medium text-red-500 line-through">지급 불가</span>
+                </div>
+                <div className="flex justify-between py-2 border-b border-dashed border-gray-200">
+                  <span className="text-gray-600">보상청 청구 후</span>
+                  <span className="font-bold text-blue-600">6,000,000원</span>
+                </div>
+                <div className="flex justify-between py-2">
+                  <span className="text-gray-600">지급 상태</span>
+                  <span className="inline-flex items-center gap-1 text-green-600 font-semibold">
+                    <CheckCircle className="w-4 h-4" />
+                    지급 완료
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* 서류 더미 아이콘 영역 */}
+            <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-6 border border-blue-100">
+              <div className="flex items-start gap-4">
+                <div className="flex -space-x-2">
+                  <div className="w-12 h-16 bg-white rounded shadow-md border border-gray-200 flex items-center justify-center">
+                    <FileText className="w-6 h-6 text-gray-400" />
+                  </div>
+                  <div className="w-12 h-16 bg-white rounded shadow-md border border-gray-200 flex items-center justify-center translate-y-1">
+                    <FileText className="w-6 h-6 text-gray-400" />
+                  </div>
+                  <div className="w-12 h-16 bg-white rounded shadow-md border border-gray-200 flex items-center justify-center translate-y-2">
+                    <FileText className="w-6 h-6 text-blue-500" />
+                  </div>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900 mb-1">수백 건의 청구 데이터</p>
+                  <p className="text-sm text-gray-600">
+                    매년 축적되는 보상 청구 노하우가<br />
+                    고객님의 숨은 돈을 찾아드립니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 오른쪽: 본문 텍스트 */}
+          <div className="space-y-6">
+            <div className="prose prose-lg">
+              <p className="text-gray-600 text-lg leading-relaxed">
+                남들은 안 된다고 포기할 때, 저는 받아냈습니다.
+              </p>
+              <p className="text-gray-600 text-lg leading-relaxed">
+                보험사가 가장 무서워하는 설계사는 약관을 외우는 사람이 아니라,{" "}
+                <span className="font-bold text-gray-900 bg-yellow-100 px-1">
+                  &apos;청구를 미친 듯이 해본 사람&apos;
+                </span>
+                입니다.
+              </p>
+              <p className="text-gray-600 text-lg leading-relaxed">
+                수백 건의 보상 청구 데이터와 노하우,<br />
+                이것이 제 실력의 증거입니다.
+              </p>
+            </div>
+
+            {/* 통계 그리드 */}
+            <div className="grid grid-cols-2 gap-4 mt-8">
+              {stats.map((stat, index) => {
+                const Icon = stat.icon;
+                return (
+                  <div
+                    key={index}
+                    className="bg-white rounded-xl p-4 shadow-md hover:shadow-lg transition-shadow"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <p className="text-xl font-bold text-gray-900">{stat.value}</p>
+                        <p className="text-xs text-gray-500">{stat.label}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>
