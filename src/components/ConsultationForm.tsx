@@ -1,7 +1,7 @@
 import { Phone, Clock, CheckCircle, MessageCircle } from "lucide-react";
 
 export default function ConsultationForm() {
-  const phoneNumber = "010-1234-5678"; // 실제 상담 전화번호로 변경
+  const phoneNumber = "010-5482-4285";
 
   return (
     <section id="consultation" className="py-20 bg-white">
