@@ -161,7 +161,7 @@ export default function Chatbot() {
 
       {/* 챗봇 창 */}
       {isOpen && (
-        <div className="fixed top-0 right-0 w-[500px] h-screen bg-white shadow-2xl flex flex-col z-50 overflow-hidden border-l border-gray-200">
+        <div className="fixed top-0 right-0 w-full md:w-[500px] h-screen bg-white shadow-2xl flex flex-col z-50 overflow-hidden md:border-l border-gray-200">
           {/* 헤더 */}
           <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-5 flex items-center justify-between text-white">
             <div className="flex items-center gap-3">
