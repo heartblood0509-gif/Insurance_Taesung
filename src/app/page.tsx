@@ -9,6 +9,7 @@ import Testimonials from "@/components/Testimonials";
 import Partners from "@/components/Partners";
 import Pricing from "@/components/Pricing";
 import Footer from "@/components/Footer";
+import Chatbot from "@/components/Chatbot";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <Pricing />
       <ConsultationForm />
       <Footer />
+      <Chatbot />
     </main>
   );
 }
