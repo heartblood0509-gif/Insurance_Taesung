@@ -46,7 +46,9 @@ export default function ConsultationForm() {
 
           {/* 카카오톡 상담 (옵션) */}
           <a
-            href="#"
+            href="https://open.kakao.com/o/sStw4P6h"
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-full flex items-center justify-center gap-3 bg-[#FEE500] hover:bg-[#FDD835] text-gray-900 py-4 px-6 rounded-xl font-bold text-lg transition-all"
           >
             <MessageCircle className="w-6 h-6" />

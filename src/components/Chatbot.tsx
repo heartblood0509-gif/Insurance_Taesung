@@ -13,6 +13,19 @@ export default function Chatbot() {
   ]);
   const [input, setInput] = useState("");
 
+  // 근무시간 체크 함수
+  const isBusinessHours = () => {
+    // 테스트용: 임시로 false로 설정 (근무시간 외 테스트)
+    // 실제 배포 시 아래 주석을 해제하고 return false; 삭제하세요
+    return false;
+
+    // const now = new Date();
+    // const day = now.getDay(); // 0: 일요일, 6: 토요일
+    // const hour = now.getHours();
+    // // 평일(월-금)이고 9시-18시 사이
+    // return day >= 1 && day <= 5 && hour >= 9 && hour < 18;
+  };
+
   const quickReplies = [
     { text: "숨은 보험금 찾기", action: "hidden" },
     { text: "보험료 절감 상담", action: "save" },
@@ -21,6 +34,25 @@ export default function Chatbot() {
   ];
 
   const handleQuickReply = (action: string, text: string) => {
+    // 근무시간 외일 경우 안내 메시지
+    if (!isBusinessHours()) {
+      const afterHoursMessages = [
+        "현재 상담 가능 시간이 아닙니다. (평일 09:00-18:00)\n\n긴급하신 경우 카카오톡으로 문의 남겨주시면 다음 영업일에 빠르게 연락드리겠습니다!",
+        "죄송합니다. 지금은 상담 시간이 아니에요. (평일 오전 9시~오후 6시)\n\n카카오톡으로 문의 남겨주시면 내일 아침 바로 확인하고 연락드릴게요!",
+        "안녕하세요! 현재는 상담 시간 외입니다. 😊\n상담 시간: 평일 09:00-18:00\n\n아래 카카오톡 버튼으로 문의 남겨주시면 빠르게 답변드리겠습니다!"
+      ];
+
+      setMessages([
+        ...messages,
+        { type: "user", text },
+        {
+          type: "bot",
+          text: getRandomResponse(afterHoursMessages),
+        },
+      ]);
+      return;
+    }
+
     setMessages([
       ...messages,
       { type: "user", text },
@@ -85,6 +117,26 @@ export default function Chatbot() {
 
     const userInput = input.toLowerCase();
     let botResponse = "";
+
+    // 근무시간 외일 경우 안내 메시지
+    if (!isBusinessHours()) {
+      const afterHoursMessages = [
+        "현재 상담 가능 시간이 아닙니다. (평일 09:00-18:00)\n\n긴급하신 경우 카카오톡으로 문의 남겨주시면 다음 영업일에 빠르게 연락드리겠습니다!",
+        "죄송합니다. 지금은 상담 시간이 아니에요. (평일 오전 9시~오후 6시)\n\n카카오톡으로 문의 남겨주시면 내일 아침 바로 확인하고 연락드릴게요!",
+        "안녕하세요! 현재는 상담 시간 외입니다. 😊\n상담 시간: 평일 09:00-18:00\n\n아래 카카오톡 버튼으로 문의 남겨주시면 빠르게 답변드리겠습니다!"
+      ];
+
+      setMessages([
+        ...messages,
+        { type: "user", text: input },
+        {
+          type: "bot",
+          text: getRandomResponse(afterHoursMessages),
+        },
+      ]);
+      setInput("");
+      return;
+    }
 
     const variableResponses = {
       companies: [
@@ -197,7 +249,7 @@ export default function Chatbot() {
                       : "bg-white text-gray-800 rounded-tl-sm shadow-sm"
                   }`}
                 >
-                  <p className="text-base leading-relaxed">{msg.text}</p>
+                  <p className="text-base leading-relaxed whitespace-pre-line">{msg.text}</p>
                 </div>
               </div>
             ))}
@@ -237,14 +289,27 @@ export default function Chatbot() {
               </button>
             </div>
 
-            {/* 전화 버튼 */}
+            {/* 전화 버튼 (항상 표시) */}
             <a
               href="tel:01054824285"
-              className="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white py-3 rounded-full text-base font-semibold transition-colors"
+              className="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white py-3 rounded-full text-base font-semibold transition-colors mb-2"
             >
               <Phone className="w-5 h-5" />
               지금 바로 전화 상담
             </a>
+
+            {/* 카카오톡 버튼 (근무시간 외에만 표시) */}
+            {!isBusinessHours() && (
+              <a
+                href="https://open.kakao.com/o/sStw4P6h"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 bg-[#FEE500] hover:bg-[#FDD835] text-gray-900 py-3 rounded-full text-base font-semibold transition-colors"
+              >
+                <MessageCircle className="w-5 h-5" />
+                카카오톡으로 문의하기
+              </a>
+            )}
           </div>
         </div>
       )}
